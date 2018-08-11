@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CVTTest.Domain.ContactList.ContactInfo>
+
+@{
+    ViewBag.Title = "Дополнительная информация";
+}
+
+<h2>По контакту @ViewBag.FullName</h2>
+
+<p>
+    @Html.ActionLink("Создать", "Create", new { personId = @ViewBag.PersonId })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Skype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdditinalInfo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Skype)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdditinalInfo)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.ContactInfoId }) |
+                @Html.ActionLink("Детали", "Details", new { id = item.ContactInfoId }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.ContactInfoId })
+            </td>
+        </tr>
+    }
+
+
+</table>
+
+@Html.ActionLink("К списку контактов", "Index", "People")

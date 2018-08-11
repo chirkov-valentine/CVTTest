@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CVTTest.Domain.ContactList.Person>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Список контактов</h2>
+
+@using (Html.BeginForm("Index", "People", FormMethod.Get))
+{
+    @Html.TextBox("searchString")
+    <input type="submit" value="Поиск" class="btn btn-primary" />
+}
+
+<p>
+    @Html.ActionLink("Создать", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Organization)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Organization)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.PersonId }) |
+                @Html.ActionLink("Детали", "Details", new { id = item.PersonId }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.PersonId })
+            </td>
+        </tr>
+    }
+
+</table>
