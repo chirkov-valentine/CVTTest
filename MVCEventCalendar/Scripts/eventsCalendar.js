@@ -35,11 +35,11 @@
         $('#calender').fullCalendar({
             contentHeight: 400,
             defaultDate: new Date(),
-            timeFormat: 'h(:mm)a',
+            timeFormat: 'H(:mm)',
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'month,basicWeek,basicDay,agenda'
+                right: 'month,basicWeek,basicDay,agenda,listWeek'
             },
             eventLimit: true,
             eventColor: '#378006',
@@ -49,9 +49,9 @@
                 $('#myModal #eventTitle').text(calEvent.title);
                 var $description = $('<div/>');
                 $description.append($('<p/>').html('<b>Тип события: </b>' + getEventName(calEvent.eventTypeId)));
-                $description.append($('<p/>').html('<b>Время начала:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));             
+                $description.append($('<p/>').html('<b>Время начала:</b>' + calEvent.start.format("DD.MM.YYYY HH:mm")));             
                 if (calEvent.end != null) {
-                    $description.append($('<p/>').html('<b>Время окончания:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                    $description.append($('<p/>').html('<b>Время окончания:</b>' + calEvent.end.format("DD.MM.YYYY HH:mm")));
                 }
                 if (calEvent.meetingPoint != null) {
                     $description.append($('<p/>').html('<b>Место:</b>' + calEvent.meetingPoint));
@@ -80,13 +80,25 @@
                 var data = {
                     EventId: event.eventID,
                     Title: event.title,
-                    StartDate: event.start.format('DD/MM/YYYY HH:mm A'),
-                    EndDate: event.end != null ? event.end.format('DD/MM/YYYY HH:mm A') : null,
+                    StartDate: event.start.format('DD.MM.YYYY HH:mm'),
+                    EndDate: event.end != null ? event.end.format('DD.MM.YYYY HH:mm') : null,
                     MeetingPoint: event.meetingPoint,
                     EventTypeId: event.eventTypeId,
                     IsFinished: event.isFinished
                 };
                 SaveEvent(data);
+            },
+            // русификатор
+            monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'οюнь', 'οюль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            monthNamesShort: ['Янв.', 'Фев.', 'Март', 'Апр.', 'Май', 'Июнь', 'Июль', 'Авг.', 'Сент.', 'Окт.', 'Ноя.', 'Дек.'],
+            dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+            dayNamesShort: ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"],
+            buttonText: {
+                
+                today: "Сегодня",
+                month: "Месяц",
+                week: "Неделя",
+                day: "День"
             }
         })
     }
@@ -116,7 +128,7 @@
     })
 
     $('#dtp1,#dtp2').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm A'
+        locale: 'ru'
     });
 
     $('#ddEventType').change(function () {
@@ -137,10 +149,10 @@
         if (selectedEvent != null) {
             $('#hdEventID').val(selectedEvent.eventID);
             $('#txtTitle').val(selectedEvent.title);
-            $('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
+            $('#txtStart').val(selectedEvent.start.format('DD.MM.YYYY HH:mm '));
             $('#chkIsFinished').prop("checked", selectedEvent.isFinished || false);
             $('#ddEventType').change();
-            $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('DD/MM/YYYY HH:mm A') : '');
+            $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('DD.MM.YYYY HH:mm ') : '');
             $('#txtMeetingPoint').val(selectedEvent.meetingPoint);
             $('#ddEventType').val(selectedEvent.eventTypeId);
         }
